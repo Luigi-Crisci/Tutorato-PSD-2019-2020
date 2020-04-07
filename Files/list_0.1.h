@@ -36,3 +36,9 @@ list tailList(list l);
  */
 item getFirst(list l);
 
+/**
+ * truncate(list l) -> l
+ * pre: l = <a1,a2,...,an>, n>0
+ * post: l = <a1>
+ */
+list truncate(list l);

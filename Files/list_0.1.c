@@ -3,7 +3,7 @@
 #include"list_0.1.h"
 
 struct nodo {
-    int e;
+    item e;
     struct nodo* next;
 };
 
@@ -66,4 +66,8 @@ item getFirst(list l){
     //return (emptyList(l)) ? NULLITEM : l-> e;
 }
 
+list truncate(list l){
+    l -> next = NULL;
+    return l;
+}
 
