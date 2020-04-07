@@ -3,7 +3,7 @@
 #include"list_0.1.h"
 
 struct nodo {
-    item e;
+    int e;
     struct nodo* next;
 };
 
