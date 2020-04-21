@@ -82,14 +82,19 @@ static struct node* insertItem(struct node *l, int pos, item e){
 	
 	struct node* tmp = l, *prec;
 	int i=0;
-	while(tmp != NULL && i < pos - 1){
+	while(tmp != NULL && i < pos){
 		i++;
 		prec = tmp;
 		tmp = tailList(tmp);
 	}
 
-	if(tmp == NULL)
-		return NULL;
+	if(tmp == NULL){
+		struct node *last = malloc(sizeof(struct node));
+		last -> e = e;
+		last -> next = NULL;
+		
+		prec -> next = last;
+	}
 	else{
 		tmp = consList(tmp,e);
 		prec -> next = tmp;
@@ -124,7 +129,7 @@ static struct node* removeItem(struct node* l, int pos){
 
 	tmp = l;
 	int i = 0;
-	while (tmp != NULL && i < pos - 1){
+	while (tmp != NULL && i < pos ){
 		i++;
 		prec = tmp;
 		tmp = tailList(tmp);
@@ -139,3 +144,93 @@ static struct node* removeItem(struct node* l, int pos){
 
 	return l;
 }
+
+/** 
+ * cloneList(l) -> l1
+ * pre: !emptyList(l)
+ * post: l1 = l
+ */
+list cloneList(list l){
+	list l1 = newList();
+	struct node* tmp = l -> first;
+	while(tmp != NULL){
+		if(insertList(l1,l1 -> n,tmp -> e) == 0){
+			freeList(l1);
+			return NULL;
+		}
+		tmp = tmp -> next;
+	}
+
+	return l1;
+}
+
+item getFirst(list l){
+	return emptyList(l) ? NULLITEM : l -> first -> e;
+}
+
+item getItem(list l, int pos){
+	if(pos < 0 || pos > l -> n)
+		return NULLITEM;
+
+	struct node* tmp = l -> first;
+	for (int i = 0; i < pos; i++)
+		tmp = tailList(tmp);
+
+	return tmp -> e;
+}
+
+list inputList(){
+	int n;
+	do{
+		printf("Quanti elementi vuoi inserire? \n");
+		scanf("%d",&n);
+	}while( n < 0);
+
+	list l = newList();
+	item e;
+	for (int i = 0; i < n; i++)
+	{
+		printf("Elemento %d: ",i);
+		input_item(&e);
+		insertList(l,l->n,e);
+	}
+	
+	return l;
+}
+
+void outputList(list l){
+	for (int i = 0; i < l -> n; i++)
+	{
+		printf("Elemento %d: ",i);
+		output_item(getItem(l,i));
+	}
+}
+
+/**
+ * mergeList(l1,l2) -> l3
+ * pre: l1 = <a1,a2,....,an>, l2 = <b1,b2,...,bm>, n>0, m>0
+ * post: l3 = <a1,a2,...,an,b1,b2,...,bm>
+ */
+list mergeList(list l1,list l2){
+	list l3=new_list();
+	struct node* tmp1=l1->first;
+	struct node* tmp2=l2->first;
+	for(int i=0;i<l1->n;i++){
+			insertList(l3,l3->n,tmp1->e);
+			tmp1=tmp1->next;
+	}
+
+	for(int i=0;i<l2->n;i++){
+			insertList(l3,l3->n,tmp2->e);
+			tmp2=tmp2->next;
+	}
+
+	return l3;
+}
+
+void freeList(list l){
+	while(!emptyList(l))
+		removeList(l,0);
+	free(l);
+}
+
