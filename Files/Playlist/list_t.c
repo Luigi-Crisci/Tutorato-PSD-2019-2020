@@ -201,7 +201,7 @@ list inputList(){
 void outputList(list l){
 	for (int i = 0; i < l -> n; i++)
 	{
-		printf("Elemento %d: ",i);
+		printf("Elemento %d:\n",i);
 		output_item(getItem(l,i));
 	}
 }
@@ -212,7 +212,7 @@ void outputList(list l){
  * post: l3 = <a1,a2,...,an,b1,b2,...,bm>
  */
 list mergeList(list l1,list l2){
-	list l3=new_list();
+	list l3=newList();
 	struct node* tmp1=l1->first;
 	struct node* tmp2=l2->first;
 	for(int i=0;i<l1->n;i++){
