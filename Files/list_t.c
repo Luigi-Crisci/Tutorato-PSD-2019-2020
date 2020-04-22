@@ -169,7 +169,7 @@ item getFirst(list l){
 }
 
 item getItem(list l, int pos){
-	if(pos < 0 || pos > l -> n)
+	if(pos < 0 || pos >= l -> n)
 		return NULLITEM;
 
 	struct node* tmp = l -> first;
