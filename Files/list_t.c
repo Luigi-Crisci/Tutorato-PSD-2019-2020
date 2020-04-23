@@ -235,11 +235,9 @@ void freeList(list l){
 }
 
 int searchItem(list l, item e){
-	item tmp;
 	for (int i = 0; i < sizeList(l); i++)
 	{
-		tmp = getItem(l,0);
-		if(eq(tmp,e) == 0)
+		if(eq(getItem(l,i),e) == 1)
 			return i;
 	}
 	return -1;
