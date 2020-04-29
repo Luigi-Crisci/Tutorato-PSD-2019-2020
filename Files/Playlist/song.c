@@ -50,8 +50,16 @@ int compare_struct(song s1,song s2){
 	return s1 -> length > s2 -> length ? 1 : -1;
 }
 
-int eq_struct(song s1, song s2){
-	return compare_struct(s1,s2);
+song copy_struct(song e){
+	song copy = new_cell();
+	*copy = *e;
+	strcpy(copy-> artist,e->artist);
+	strcpy(copy -> name, e -> name);
+	return copy;
+}
+
+void free_struct(song e){
+	free(e);
 }
 
 /**
