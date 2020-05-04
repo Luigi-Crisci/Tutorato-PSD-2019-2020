@@ -140,8 +140,6 @@ int removeList(list l, int pos){
 	if (l == NULL)
 		return -1;
 	struct node* tmp = removeItem(l->first,pos);
-	if( tmp == NULL)
-		return -1;
 	l -> first = tmp;
 	l -> n--;
 	return 1;
