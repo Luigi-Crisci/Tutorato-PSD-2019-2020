@@ -46,29 +46,13 @@ static struct node* consList(struct node* l,item e){
 	struct node *new = malloc(sizeof(struct node));
 	if( new == NULL)
 		return NULL;
-	new -> e = e;
+	new -> e = copy_item(e);
 	new -> next = l;
 	return new;
 }
 
 static struct node* tailList(struct node* l){
 	return l -> next;
-}
-
-/**
- * pre: 0 <= pos <= sizeList(l) && e != NULLITEM 
- * 		&& l = <a1,a2,...,an>, n>=0  
- * post: l = <a1,a2,....,a_pos-1,a_e,a_pos+1,...,an>, n > 0
- */
-int insertList(list l, int pos, item e){
-	if(l == NULL)
-		return -1;
-	struct node* tmp = insertItem(l -> first,pos,e);
-	if( tmp == NULL)
-		return -1;
-	l -> first = tmp;
-	l -> n++;
-	return 1;
 }
 
 /**
@@ -90,9 +74,9 @@ static struct node* insertItem(struct node *l, int pos, item e){
 
 	if(tmp == NULL){
 		struct node *last = malloc(sizeof(struct node));
-		last -> e = e;
+		last -> e = copy_item(e);
 		last -> next = NULL;
-		
+	
 		prec -> next = last;
 	}
 	else{
@@ -104,20 +88,21 @@ static struct node* insertItem(struct node *l, int pos, item e){
 }
 
 /**
- * pre: l != NULL && 0 <= pos <= sizeList(l)
- * 		l = <a1,a2,..,a_pos,..,an>, n>0
- * post: l = <a1,a2,...,a_pos-1,a_pos+1,...,an>, n >=0
+ * pre: 0 <= pos <= sizeList(l) && e != NULLITEM 
+ * 		&& l = <a1,a2,...,an>, n>=0  
+ * post: l = <a1,a2,....,a_pos-1,a_e,a_pos+1,...,an>, n > 0
  */
-int removeList(list l, int pos){
-	if (l == NULL)
+int insertList(list l, int pos, item e){
+	if(l == NULL)
 		return -1;
-	struct node* tmp = removeItem(l->first,pos);
+	struct node* tmp = insertItem(l -> first,pos,e);
 	if( tmp == NULL)
 		return -1;
 	l -> first = tmp;
-	l -> n--;
+	l -> n++;
 	return 1;
 }
+
 
 static struct node* removeItem(struct node* l, int pos){
 	struct node* tmp,*prec;
@@ -139,10 +124,25 @@ static struct node* removeItem(struct node* l, int pos){
 		return NULL;
 	else{
 		prec -> next = tailList(tmp);
+		free_item(tmp -> e);
 		free(tmp);
 	}
 
 	return l;
+}
+
+/**
+ * pre: l != NULL && 0 <= pos <= sizeList(l)
+ * 		l = <a1,a2,..,a_pos,..,an>, n>0
+ * post: l = <a1,a2,...,a_pos-1,a_pos+1,...,an>, n >=0
+ */
+int removeList(list l, int pos){
+	if (l == NULL)
+		return -1;
+	struct node* tmp = removeItem(l->first,pos);
+	l -> first = tmp;
+	l -> n--;
+	return 1;
 }
 
 /** 
@@ -176,7 +176,7 @@ item getItem(list l, int pos){
 	for (int i = 0; i < pos; i++)
 		tmp = tailList(tmp);
 
-	return tmp -> e;
+	return copy_item(tmp -> e);
 }
 
 list inputList(){
@@ -193,6 +193,7 @@ list inputList(){
 		printf("Elemento %d: ",i);
 		input_item(&e);
 		insertList(l,l->n,e);
+		free(e);
 	}
 	
 	return l;
@@ -201,7 +202,7 @@ list inputList(){
 void outputList(list l){
 	for (int i = 0; i < l -> n; i++)
 	{
-		printf("Elemento %d: ",i);
+		printf("Elemento %d:\n",i);
 		output_item(getItem(l,i));
 	}
 }
@@ -212,7 +213,7 @@ void outputList(list l){
  * post: l3 = <a1,a2,...,an,b1,b2,...,bm>
  */
 list mergeList(list l1,list l2){
-	list l3=new_list();
+	list l3=newList();
 	struct node* tmp1=l1->first;
 	struct node* tmp2=l2->first;
 	for(int i=0;i<l1->n;i++){
@@ -235,9 +236,11 @@ void freeList(list l){
 }
 
 int searchItem(list l, item e){
+	item tmp;
 	for (int i = 0; i < sizeList(l); i++)
 	{
-		if(eq(getItem(l,i),e) == 1)
+		tmp = getItem(l,i);
+		if(compare_item(tmp,e) == 0)
 			return i;
 	}
 	return -1;
