@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "list_t.h"
-#include "cell.h"
+#include "../list.h"
+#include "../Struct/cell.h"
 
 /**
  * Find next word, delimited only by newline characters and spaces

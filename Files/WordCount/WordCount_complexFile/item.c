@@ -1,5 +1,5 @@
 #include"item.h"
-#include"cell.h"
+#include"../Struct/cell.h"
 
 item copy_item(item e){
     return copy_struct(e);

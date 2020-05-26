@@ -1,5 +1,5 @@
-#include"list_t.h"
-#include"song.h"
+#include"../list.h"
+#include"../Struct/song.h"
 typedef list playlist;
 
 playlist new_playlist();

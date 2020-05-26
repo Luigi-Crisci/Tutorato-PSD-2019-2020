@@ -2,10 +2,10 @@ mainList.exe:	mainList.o	list_0.1.o	item.o
 	gcc	mainList.o	list_0.1.o	item.o	-o	mainList.exe
 
 item.o:	item.c
-	gcc	-c	item.c
+	gcc	-c	../item.c
 
 list_0.1.o:	item.h	list_0.1.c
-	gcc	-c	list_0.1.c
+	gcc	-c	../list_0.1.c
 
 mainList.o:	mainList.c	list_0.1.h	item.h
 	gcc	-c	mainList.c

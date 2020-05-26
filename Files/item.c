@@ -1,22 +1,22 @@
 #include"item.h"
-#include"song.h"
-
-void input_item(item *x){
-    input_item_struct(x);
-}
-
-void output_item(item x){
-    output_item_struct(x);
-} 
-
-int compare_item(item x1,item x2){
-    return compare_struct(x1,x2);
-}
+#include"cell.h" //just insert here the struct you want item to handle
 
 item copy_item(item e){
     return copy_struct(e);
 }
 
+int compare_item(item x1,item x2){
+    return compare_struct(x1,x2);
+}
+
+int update_item(item x1, item x2){
+    return update_struct(x1,x2);
+}
+
 void free_item(item e){
     free_struct(e);
+}
+
+void output_item(item e){
+    output_struct(e);
 }

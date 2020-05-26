@@ -1,2 +1,2 @@
-This is a testfile with (some) strange things to be "avoid"
-very VERY """"strange""""
+This is a testfile with (some) strange things to be "avoided"
+very VERY """"strange"""";;:

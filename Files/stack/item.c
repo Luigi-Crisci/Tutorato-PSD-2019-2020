@@ -1,5 +1,5 @@
 #include"item.h"
-#include"song.h"
+#include"../Struct/song.h"
 
 void input_item(item *x){
     input_item_struct(x);

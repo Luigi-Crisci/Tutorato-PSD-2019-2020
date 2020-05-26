@@ -6,12 +6,11 @@
  * Una traccia è composta da un titolo, artista e durata 
  * 
  */
-
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 #include"playlist.h"
 #include"item.h"
-#include<string.h>
 
 playlist new_playlist(){
 	return newList();

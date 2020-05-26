@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
-#include"list_0.1.h"
-#include"item.h"
+#include"../list_0.1.h"
+#include"../item.h"
 
 void printList(list l){
 	list tmp;

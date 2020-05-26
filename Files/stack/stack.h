@@ -1,4 +1,4 @@
-#include"list_t.h"
+#include"../list.h"
 typedef list stack;
 
 stack new_stack();

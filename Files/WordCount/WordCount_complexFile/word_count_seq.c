@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "list_t.h"
-#include "cell.h"
+#include "../list.h"
+#include "../Struct/cell.h"
 #include "tokenizer.h"
 
 void to_lower_string(char* word){
